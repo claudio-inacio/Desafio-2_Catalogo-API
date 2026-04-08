@@ -1,30 +1,55 @@
-import { Heart } from "lucide-react";
+import { Search } from "lucide-react";
+
+export type SortOption = "asc" | "desc";
 
 type HeaderActionsProps = {
-  favoritesCount?: number;
-  onFavoritesClick?: () => void;  
+  searchValue: string;
+  onSearchChange: (value: string) => void;
+  onSortChange: (value: SortOption) => void;
+  selectedSort: SortOption;
 };
 
 export function HeaderActions({
-  favoritesCount = 0,
-  onFavoritesClick,
-  
+  searchValue,
+  onSearchChange,
+  onSortChange,
+  selectedSort,
 }: HeaderActionsProps) {
   return (
-    <div className="flex items-center gap-3">
-      <button
-        type="button"
-        onClick={onFavoritesClick}
-        className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
-        aria-label="Abrir favoritos"
-      >
-        <Heart className="h-5 w-5" />
-        {favoritesCount > 0 ? (
-          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-400 px-1 text-xs font-semibold text-slate-900">
-            {favoritesCount}
-          </span>
-        ) : null}
-      </button>
+    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="relative w-full lg:max-w-xl">
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+
+        <input
+          type="text"
+          value={searchValue}
+          onChange={(event) => onSearchChange(event.target.value)}
+          placeholder="Buscar produto pelo nome..."
+          className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+        />
+      </div>
+
+      <div className="flex w-full flex-col gap-2 lg:w-auto">
+        <label
+          htmlFor="sort-products"
+          className="text-sm font-medium text-slate-600"
+        >
+          Ordenar por preço
+        </label>
+
+        <select
+          id="sort-products"
+          value={selectedSort}
+          onChange={(event) =>
+            onSortChange(event.target.value as SortOption)
+          }
+          className="h-12 min-w-[220px] rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+        >
+          <option value="asc">Menor para maior</option>
+          <option value="desc">Maior para menor</option>
+        </select>
+      </div>
     </div>
   );
 }
+

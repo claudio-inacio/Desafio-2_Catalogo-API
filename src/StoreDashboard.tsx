@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { StoreHeader } from "./components/header/StoreHeader";
 import { useGetProducts } from "./hooks/useGetProducts";
@@ -42,16 +43,13 @@ function StoreDashboard() {
     return (
         <>
             <StoreHeader
-                storeName="TR MODAS"
+                storeName="NACIONAL MODAS"
                 subtitle="Explore nossos produtos e encontre os melhores preços"
                 searchValue={search}
                 selectedSort={sort}
-                favoritesCount={2}
                 onSearchChange={setSearch}
                 onSortChange={setSort}
-                onFavoritesClick={() => {
-                    console.log("FEATURE: EXIBIR LISTA APENAS COM FAVORITOS");
-                }}
+
             />
             <div className="min-h-screen bg-slate-100 ">
                 <div className="mx-auto grid  gap-6 p-2 grid-cols-[260px_1fr]">
@@ -59,6 +57,7 @@ function StoreDashboard() {
                         <CategorySidebar
                             selectedCategory={selectedCategory}
                             categories={categoriesData}
+                            favoriteQuantity={8}
                             isLoading={isPending}
                             onCategoryChange={handleSelectCategory}
                         />

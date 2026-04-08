@@ -4,15 +4,17 @@ import type { CategoryItem } from "./category-sidebar.types";
 
 type CategorySidebarProps = {
   categories: CategoryItem[] | undefined;
-isLoading ?: boolean;
-selectedCategory: CategoryItem;
-onCategoryChange: (category: CategoryItem) => Promise<void> | void;
+  isLoading?: boolean;
+  favoriteQuantity: number;
+  selectedCategory: CategoryItem;
+  onCategoryChange: (category: CategoryItem) => Promise<void> | void;
 };
 
 export function CategorySidebar({
   categories,
   selectedCategory,
   isLoading = false,
+  favoriteQuantity,
   onCategoryChange,
 }: CategorySidebarProps) {
 
@@ -28,6 +30,7 @@ export function CategorySidebar({
         {categories?.map((category) => (
           <CategorySidebarItem
             key={category.id}
+            quantity={favoriteQuantity}
             category={category}
             isActive={selectedCategory?.id === category.id}
             onSelect={onCategoryChange}

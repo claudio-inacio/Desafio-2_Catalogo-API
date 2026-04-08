@@ -1,10 +1,12 @@
-import { Home } from "lucide-react";
+import {  Home } from "lucide-react";
 import type { CategoryItem } from "./category-sidebar.types";
 import { IconCategoriesEnum, NameCategoriesEnum } from "../../../utils/enum";
+import { FavoriteQuantity } from "../../favorite/FavoriteQuantity";
 
 type CategorySidebarItemProps = {
     category: CategoryItem;
     isActive: boolean;
+    quantity: number;
     onSelect: (category: CategoryItem) => void;
 };
 
@@ -12,9 +14,10 @@ export function CategorySidebarItem({
     category,
     isActive,
     onSelect,
+    quantity,
 }: CategorySidebarItemProps) {
     const Icon = IconCategoriesEnum[category.slug] ?? Home;
-
+    console.log({ category })
     return (
         <button
             type="button"
@@ -28,7 +31,14 @@ export function CategorySidebarItem({
             aria-pressed={isActive}
         >
             <span className="flex items-center gap-3">
-                <Icon className="h-4 w-4 shrink-0" />
+
+                {category.slug === "favorites" ? (
+                    <FavoriteQuantity quantity={quantity} />
+                ) : (
+                    <Icon className="h-6 w-6 shrink-0" />
+                )}
+
+
                 <span className="text-sm font-medium">{NameCategoriesEnum[category.slug]}</span>
             </span>
 
