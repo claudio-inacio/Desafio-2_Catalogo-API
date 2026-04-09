@@ -11,7 +11,7 @@ import { categoriesMock } from "./components/catalog/category-sidebar/mock/categ
 import { useCatalogProducts } from "./components/catalog/Products/hooks/useCatalogProducts";
 import { ProductList } from "./components/catalog/Products/ProductList";
 import type { CatalogSortOption } from "./components/catalog/Products/types/product.types";
-import { productsMock, productsNikeMock } from "./components/catalog/Products/mock/products.mock";
+import { productsNikeMock } from "./components/catalog/Products/mock/products.mock";
 import LoadingComponent from "./components/Loading";
 import { useFavorites } from "./hooks/useFavorites";
 
