@@ -1,5 +1,6 @@
+import type { CategorySlug } from "../components/catalog/category-sidebar/types/category-sidebar.types";
 import { api } from "../shared/axios";
-import type { CategorySlug } from "../utils/enum";
+
 
 interface getProductsCategoryProps {
     categoryName: CategorySlug;

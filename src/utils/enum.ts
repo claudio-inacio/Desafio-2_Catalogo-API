@@ -7,16 +7,9 @@ import {
     Heart,
     type LucideIcon,
 } from "lucide-react";
-import type { CategoryItem } from "../components/catalog/category-sidebar/category-sidebar.types";
+import type { CategoryItem, CategorySlug } from "../components/catalog/category-sidebar/types/category-sidebar.types";
 
 
-export type CategorySlug =
-    | "electronics"
-    | "jewelery"
-    | "men's clothing"
-    | "women's clothing"
-    | "all"
-    | "favorites"
 
 export const CategorySlugEnum: Record<string, CategorySlug> = {
     electronics: "electronics",

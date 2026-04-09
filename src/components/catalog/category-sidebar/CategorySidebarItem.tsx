@@ -1,5 +1,5 @@
 import {  Home } from "lucide-react";
-import type { CategoryItem } from "./category-sidebar.types";
+import type { CategoryItem } from "./types/category-sidebar.types";
 import { IconCategoriesEnum, NameCategoriesEnum } from "../../../utils/enum";
 import { FavoriteQuantity } from "../../favorite/FavoriteQuantity";
 
@@ -16,8 +16,7 @@ export function CategorySidebarItem({
     onSelect,
     quantity,
 }: CategorySidebarItemProps) {
-    const Icon = IconCategoriesEnum[category.slug] ?? Home;
-    console.log({ category })
+    const Icon = IconCategoriesEnum[category.slug] ?? Home;    
     return (
         <button
             type="button"

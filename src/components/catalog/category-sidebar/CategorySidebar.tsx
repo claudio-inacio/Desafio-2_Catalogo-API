@@ -1,6 +1,6 @@
 import { Folder } from "lucide-react";
 import { CategorySidebarItem } from "./CategorySidebarItem";
-import type { CategoryItem } from "./category-sidebar.types";
+import type { CategoryItem } from "./types/category-sidebar.types";
 
 type CategorySidebarProps = {
   categories: CategoryItem[] | undefined;
@@ -42,8 +42,8 @@ export function CategorySidebar({
         <div className="mt-4 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-500">
           Buscando categorias disponíveis...
         </div>
-      ) : categories?.length === 1 ? <div className="mt-4 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-500">
-        Não foi Possivel carregar todas categorias... Tente novamente mais tarde.
+      ) : !categories || categories?.length === 1 ? <div className="mt-4 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-500">
+        Não foi Possivel obter as categorias disponíveis... Tente novamente mais tarde!
       </div> : null}
     </aside>
   );

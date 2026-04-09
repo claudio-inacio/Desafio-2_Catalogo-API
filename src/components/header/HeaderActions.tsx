@@ -1,12 +1,14 @@
 import { Search } from "lucide-react";
+import type { CatalogSortOption } from "../catalog/Products/types/product.types";
 
-export type SortOption = "asc" | "desc";
+
 
 type HeaderActionsProps = {
   searchValue: string;
   onSearchChange: (value: string) => void;
-  onSortChange: (value: SortOption) => void;
-  selectedSort: SortOption;
+  onSortChange: (value: CatalogSortOption) => void;
+  selectedSort: CatalogSortOption;
+  disabled: boolean;
 };
 
 export function HeaderActions({
@@ -14,6 +16,7 @@ export function HeaderActions({
   onSearchChange,
   onSortChange,
   selectedSort,
+  disabled,
 }: HeaderActionsProps) {
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -23,6 +26,7 @@ export function HeaderActions({
         <input
           type="text"
           value={searchValue}
+          disabled={disabled}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Buscar produto pelo nome..."
           className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
@@ -34,19 +38,21 @@ export function HeaderActions({
           htmlFor="sort-products"
           className="text-sm font-medium text-slate-600"
         >
-          Ordenar por preço
+          Ordenar por
         </label>
 
         <select
           id="sort-products"
           value={selectedSort}
+           disabled={disabled}
           onChange={(event) =>
-            onSortChange(event.target.value as SortOption)
+            onSortChange(event.target.value as CatalogSortOption)
           }
           className="h-12 min-w-[220px] rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
         >
-          <option value="asc">Menor para maior</option>
-          <option value="desc">Maior para menor</option>
+          <option value="default">Destaques</option>
+          <option value="price-asc">Menor para maior</option>
+          <option value="price-desc">Maior para menor</option>
         </select>
       </div>
     </div>
