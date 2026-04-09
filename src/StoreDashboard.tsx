@@ -2,7 +2,6 @@
 import { useMemo, useState } from "react";
 import { StoreHeader } from "./components/header/StoreHeader";
 import { useGetProducts } from "./hooks/useGetProducts";
-
 import { CategorySidebar } from "./components/catalog/category-sidebar/CategorySidebar";
 import { useGetCategories } from "./hooks/useGetCategories";
 import { allCategorieObject } from "./utils/enum";
@@ -14,18 +13,19 @@ import { ProductList } from "./components/catalog/Products/ProductList";
 import type { CatalogSortOption } from "./components/catalog/Products/types/product.types";
 import { productsMock, productsNikeMock } from "./components/catalog/Products/mock/products.mock";
 import LoadingComponent from "./components/Loading";
+import { useFavorites } from "./hooks/useFavorites";
 
 
 
 
 function StoreDashboard() {
+    const { toggleFavorite, favoriteIds } = useFavorites();
     const [selectedCategory, setSelectedCategory] = useState<CategoryItem>(
         allCategorieObject,
     );
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState<CatalogSortOption>("default");
     const [favoritesOnly, setFavoritesOnly] = useState(false);
-    const [favoriteIds] = useState<number[]>([2, 7, 9]);
 
 
     const {
@@ -54,7 +54,7 @@ function StoreDashboard() {
     });
 
     const handleSelectCategory = useMemo(() => {
-        if(categoriesData){
+        if (categoriesData) {
             return (
                 categoriesData.find((category) => category.slug === selectedCategory.slug) ??
                 categoriesData[0]
@@ -65,7 +65,6 @@ function StoreDashboard() {
             categoriesMock[0]
         );
     }, [selectedCategory, categoriesData]);
-
 
     return (
         <>
@@ -88,10 +87,11 @@ function StoreDashboard() {
                             <CategorySidebar
                                 selectedCategory={handleSelectCategory}
                                 categories={categoriesMock}
-                                favoriteQuantity={8}
+                                favoriteQuantity={favoriteIds.length}
                                 isLoading={loadingCategories}
-                                onCategoryChange={(category) => {                                    
+                                onCategoryChange={(category) => {
                                     setSelectedCategory(category)
+                                    setFavoritesOnly(category.slug === 'favorites')
                                 }}
                             />
                         </aside>
@@ -115,7 +115,7 @@ function StoreDashboard() {
                                     Nenhum produto encontrado para os filtros aplicados.
                                 </div>
                             ) : (
-                                <ProductList products={products} isLoading={isLoading || loadingProductsToCategory} />
+                                <ProductList favoriteIds={favoriteIds} handleFavorite={toggleFavorite} products={products} isLoading={isLoading || loadingProductsToCategory} />
                             )}
                         </main>
                     </div>

@@ -5,9 +5,11 @@ import type { Product } from "./types/product.types";
 type Props = {
     products?: Product[];
     isLoading?: boolean;
+    handleFavorite: (productId: number) => void;
+    favoriteIds: number[]
 };
 
-export function ProductList({ products, isLoading }: Props) {
+export function ProductList({ products, isLoading, favoriteIds, handleFavorite }: Props) {
     if (isLoading) {
         return (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -32,7 +34,7 @@ export function ProductList({ products, isLoading }: Props) {
     return (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard favoriteIds={favoriteIds} handleFavorite={handleFavorite} key={product.id} product={product} />
             ))}
         </div>
     );

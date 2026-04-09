@@ -1,19 +1,25 @@
 import { ProductImage } from "./ProductImage";
 import { ProductTitle } from "./ProductTitle";
 import { ProductPrice } from "./ProductPrice";
-import { ProductFavoriteButton } from "./ProductFavoriteButton";
 import type { Product } from "./types/product.types";
 import { ProductDescription } from "./ProductDescription";
+import { LikeButton } from "../../buttons/like-buton/likeButton"
 
 
 type Props = {
     product: Product;
+    handleFavorite: (productId: number) => void;
+    favoriteIds: number[]
 };
 
-export function ProductCard({ product }: Props) {
+export function ProductCard({ product, handleFavorite, favoriteIds }: Props) {
+        
     return (
         <div className="relative flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition">
-            <ProductFavoriteButton />
+            <LikeButton
+                isLiked={favoriteIds.includes(product.id)}
+                onToggle={() => handleFavorite(product.id)}
+            />
 
             <ProductImage src={product.image} alt={product.title} />
 

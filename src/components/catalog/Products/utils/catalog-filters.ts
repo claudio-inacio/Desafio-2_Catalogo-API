@@ -22,7 +22,7 @@ export function filterCatalogProducts({
   favoriteIds,
 }: FilterCatalogProductsParams): Product[] {
   let result = [...products];
-  if (category !== "all" && !apiResultData) {
+  if (category !== "all" && category !== 'favorites' && !apiResultData) {
     result = result.filter((product) => product.category === category);
   }
 
