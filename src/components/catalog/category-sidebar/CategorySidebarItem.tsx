@@ -1,4 +1,4 @@
-import {  Home } from "lucide-react";
+import { Home } from "lucide-react";
 import type { CategoryItem } from "./types/category-sidebar.types";
 import { IconCategoriesEnum, NameCategoriesEnum } from "../../../utils/enum";
 import { FavoriteQuantity } from "../../favorite/FavoriteQuantity";
@@ -7,6 +7,7 @@ type CategorySidebarItemProps = {
     category: CategoryItem;
     isActive: boolean;
     quantity: number;
+    handleControlOpenCategory: () => void;
     onSelect: (category: CategoryItem) => void;
 };
 
@@ -15,12 +16,16 @@ export function CategorySidebarItem({
     isActive,
     onSelect,
     quantity,
+    handleControlOpenCategory,
 }: CategorySidebarItemProps) {
-    const Icon = IconCategoriesEnum[category.slug] ?? Home;    
+    const Icon = IconCategoriesEnum[category.slug] ?? Home;
     return (
         <button
             type="button"
-            onClick={() => onSelect(category)}
+            onClick={() => {
+                onSelect(category)
+                handleControlOpenCategory();
+            }}
             className={[
                 "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left transition",
                 isActive

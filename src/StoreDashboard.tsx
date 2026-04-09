@@ -82,7 +82,7 @@ function StoreDashboard() {
                 <LoadingComponent title="Preaprando dados" messageLoading="Estamos buscando as categorias e produtos disponíveis, aguarde um momento..." />
             ) : (
                 <div className="min-h-screen bg-slate-100 ">
-                    <div className="mx-auto grid  gap-6 p-2 grid-cols-[260px_1fr]">
+                    <div className="mx-auto grid  gap-6 p-2 grid-cols-1 lg:grid-cols-[260px_1fr]">
                         <aside>
                             <CategorySidebar
                                 selectedCategory={handleSelectCategory}
