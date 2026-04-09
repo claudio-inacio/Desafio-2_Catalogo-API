@@ -23,11 +23,11 @@ VERSÃO TABLET
 </p>
 VERSÃO MOBILE
 <p align="center">
-  <img src="./src/screenshots/moda-nacional-mobile-1.png.png" alt="MOBILE" />
+  <img src="./src/screenshots/moda-nacional-mobile-1.png" alt="MOBILE" />
 </p>
 <p align="center">
-  <img src="./src/screenshots/moda-nacional-mobile-2.png.png" alt="MOBILE"/>
+  <img src="./src/screenshots/moda-nacional-mobile-2.png" alt="MOBILE"/>
 </p>
 <p align="center">
-  <img src="./src/screenshots/moda-nacional-mobile-3.png.png" alt="MOBILE"/>
+  <img src="./src/screenshots/moda-nacional-mobile-3.png" alt="MOBILE"/>
 </p>
