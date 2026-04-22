@@ -23,9 +23,7 @@ export function RequestErrorModal({
     title = "Erro ao carregar dados",
     message = "Ocorreu um problema ao se comunicar com a API. Tente novamente.",
     onClose,
-    // onRetry,
     closeLabel = "Fechar",
-    // retryLabel = "Tentar novamente",
     children,
 }: RequestErrorModalProps) {
     if (!open) return null;
@@ -78,17 +76,6 @@ export function RequestErrorModal({
                     >
                         {closeLabel}
                     </button>
-
-                    {/* {onRetry ? (
-                        <button
-                            type="button"
-                            onClick={onRetry}
-                            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-red-700"
-                        >
-                            <RefreshCcw className="h-4 w-4" />
-                            {retryLabel}
-                        </button>
-                    ) : null} */}
                 </div>
             </div>
         </div>
