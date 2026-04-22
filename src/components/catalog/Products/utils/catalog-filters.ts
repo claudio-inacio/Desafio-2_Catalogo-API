@@ -21,7 +21,8 @@ export function filterCatalogProducts({
   favoritesOnly,
   favoriteIds,
 }: FilterCatalogProductsParams): Product[] {
-  let result = [...products];
+
+  let result = products ? [...products] : [];
   if (category !== "all" && category !== 'favorites' && !apiResultData) {
     result = result.filter((product) => product.category === category);
   }

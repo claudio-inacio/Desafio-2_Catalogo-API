@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo, useState } from "react";
 import { StoreHeader } from "./components/header/StoreHeader";
 import { useGetProducts } from "./hooks/useGetProducts";
@@ -6,14 +5,13 @@ import { CategorySidebar } from "./components/catalog/category-sidebar/CategoryS
 import { useGetCategories } from "./hooks/useGetCategories";
 import { allCategorieObject } from "./utils/enum";
 import { useGetProductsToCategory } from "./hooks/useGetProductsToCategory";
-import type { CategoryItem } from "./components/catalog/category-sidebar/types/category-sidebar.types";
-import { categoriesMock } from "./components/catalog/category-sidebar/mock/categories.mock";
+import type { CategoryItem } from "./components/catalog/category-sidebar/types/category-sidebar.types";;
 import { useCatalogProducts } from "./components/catalog/Products/hooks/useCatalogProducts";
 import { ProductList } from "./components/catalog/Products/ProductList";
 import type { CatalogSortOption } from "./components/catalog/Products/types/product.types";
-import { productsNikeMock } from "./components/catalog/Products/mock/products.mock";
 import LoadingComponent from "./components/Loading";
 import { useFavorites } from "./hooks/useFavorites";
+import { RequestErrorModal } from "./components/error/RequestErrorModal";
 
 
 
@@ -26,25 +24,24 @@ function StoreDashboard() {
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState<CatalogSortOption>("default");
     const [favoritesOnly, setFavoritesOnly] = useState(false);
-
-
     const {
         isPending,
         data: productsData,
+        isError: errorGetProducts,
     } = useGetProducts();
     const {
         isPending: loadingProductsToCategory,
         data: productsCategoryData,
-
+        isError: errorGetProductsToCategory,
     } = useGetProductsToCategory({ category: selectedCategory?.slug });
     const {
         isPending: loadingCategories,
         data: categoriesData,
+        isError: errorGetCategories,
     } = useGetCategories();
     const apiDataProductsIsOk = productsCategoryData || productsData;
-
     const { products, total, isLoading, isEmpty } = useCatalogProducts({
-        productsList: productsCategoryData || productsData || productsNikeMock,
+        productsList: productsCategoryData || productsData,
         apiResultData: apiDataProductsIsOk,
         category: selectedCategory.slug,
         search,
@@ -52,19 +49,15 @@ function StoreDashboard() {
         favoritesOnly,
         favoriteIds,
     });
+    const existErrorToRequest =  errorGetProductsToCategory || errorGetCategories || errorGetProducts
+    const [errorToRequest, setErrorToRequest] = useState(existErrorToRequest);
 
     const handleSelectCategory = useMemo(() => {
-        if (categoriesData) {
-            return (
-                categoriesData.find((category) => category.slug === selectedCategory.slug) ??
-                categoriesData[0]
-            );
-        }
-        return (
-            categoriesMock.find((category) => category.slug === selectedCategory.slug) ??
-            categoriesMock[0]
-        );
+        return categoriesData?.find((category) => category.slug === selectedCategory.slug) || allCategorieObject
     }, [selectedCategory, categoriesData]);
+
+
+
 
     return (
         <>
@@ -86,7 +79,7 @@ function StoreDashboard() {
                         <aside>
                             <CategorySidebar
                                 selectedCategory={handleSelectCategory}
-                                categories={categoriesMock}
+                                categories={categoriesData}
                                 favoriteQuantity={favoriteIds.length}
                                 isLoading={loadingCategories}
                                 onCategoryChange={(category) => {
@@ -119,6 +112,7 @@ function StoreDashboard() {
                             )}
                         </main>
                     </div>
+                    <RequestErrorModal open={errorToRequest} title="Erro de Requisição" onClose={() => setErrorToRequest(false)} />
                 </div>
             )}
 
